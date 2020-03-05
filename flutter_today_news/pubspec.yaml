@@ -46,6 +46,7 @@ flutter:
   assets:
    - images/
    - images/tabBar/
+   - images/home/
 
   #  - images/a_dot_ham.jpeg tabBar
 

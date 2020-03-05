@@ -5,6 +5,7 @@ import 'package:flutter_today_news/modules/home/api/HomeApi.dart';
 import 'package:flutter_today_news/modules/home/model/home_nav_entity.dart';
 import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart';
 import 'package:flutter_today_news/modules/home/widgets/wenda_page.dart';
+import 'HomeAppBarView.dart';
 import 'home_focus_page.dart';
 import 'home_location_news_page.dart';
 import 'home_recoment_page.dart';
@@ -121,6 +122,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     );
   }
 
+  // 图片 images/home/searchicon_search_20x20_@2x.png
+
   @override
   Widget build(BuildContext context) {
     return _tabs.length == 0 ? Center(
@@ -129,7 +132,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         length: _tabs.length,
         child: Scaffold(
             appBar: AppBar(
-              title: Text("首页"),
+              title: HomeAppBar(),
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(48),
                 child: Material(
