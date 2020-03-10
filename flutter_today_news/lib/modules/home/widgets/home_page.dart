@@ -117,7 +117,14 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     return TabBarView(
         controller: _tabController,
         children: this._tabs.map((tab){
-          return HomeRecomendPage();
+          String category = "";
+          data.forEach((model){
+            if (model.name == tab){
+              category = model.category;
+            }
+          });
+          debugPrint("🍎category:${category}");
+          return HomeRecomendPage(category);
         }).toList(),
     );
   }

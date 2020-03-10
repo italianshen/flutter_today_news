@@ -4,11 +4,8 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
 
   /// 标题
   String title = "据韩联社刚刚消息，韩国9日0时起暂停日本公民免签证入境。韩联社报道截图责编：刘婕版权作品，未经环球网huanqiu.com 书面授权，严禁转载，违者将被追究法律责任。";
-  /// 广告的图片
-  String pic = "https://resources.ninghao.net/images/childhood-in-a-picture.jpg";
-
   /// 图片列表
-  final List<String> images =
+  List<String> images =
   [
     "http://p1-tt.byteimg.com/img/pgc-image/da0c7edc7b0c4a1dbfa76bc6408ff447~tplv-tt-cs0:340:453.jpg",
     "http://p9-tt.byteimg.com/img/pgc-image/e1d6cffdb10d41f88ba867b2502db7b4~tplv-tt-cs0:700:467.jpg",
@@ -18,6 +15,9 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
   String adText = "60条评论 38分钟前";
 
   String source = "环球时报新媒体";
+
+  HomeFeedNewsThreeImageItem(this.title,this.images,this.adText,this.source);
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -25,7 +25,7 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
     double itemMargin = 5.0;
     // 图片 224/150 图片长宽比
     double picWidth = (screenWidth - 2.0 * margin - 2.0 * itemMargin)/3.0 ;
-    double picHeight = picWidth * 150/224;
+    double picHeight = picWidth * 176/218;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +77,7 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
        itemCount: images.length,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,childAspectRatio: 224/150,
+            crossAxisCount: 3,childAspectRatio: 218/176,
             crossAxisSpacing: 5.0
         ),
         itemBuilder: (BuildContext context,int index){

@@ -6,4 +6,9 @@ class NetUtil {
     Net().get(url, params,success: success,failure: failure);
   }
 
+  /// 获取首页新闻的数据
+  static void getHomeFeedNewsData(String url,Map<String,dynamic> params,{Function success, Function failure}){
+    Net().get(url, params,success: success,failure: failure);
+  }
+
 }

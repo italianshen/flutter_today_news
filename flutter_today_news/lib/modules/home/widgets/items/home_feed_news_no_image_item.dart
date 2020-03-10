@@ -7,11 +7,15 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
   String commentCount = "114条评论";
   String time = "4小时以前";
   String whiteSpace = " ";
+
+  HomeFeedNewsNoImageItem(this.title,this.stickLabel,this.source,this.commentCount,this.time);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(title,style: TextStyle(
             fontSize: 14.0,
@@ -26,7 +30,7 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   color: Colors.red
               )),
-              SizedBox(width: 9.0,),
+              SizedBox(width: stickLabel.length == 0 ? 0.0 : 9.0,),
               Expanded(child: Text(
                   source + whiteSpace + commentCount + whiteSpace + time,
                   style: TextStyle(

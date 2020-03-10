@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeFeedNewsOneImageItem extends StatelessWidget {
   String title = "北京时间3月6日，金州勇士主场迎战多伦多猛龙。此役，勇士核心球员斯蒂芬-库里在缺席了58场比赛之后终于复出。";
@@ -17,8 +18,8 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double picWidth = (screenWidth  - 30.0) * 0.4;
-    double picHeight = picWidth * 150/224;//150/224
+    double picWidth = ScreenUtil().setWidth(218);
+    double picHeight = picWidth * 130/218;//130/218
     return Container(
       color: Colors.white,
       padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
@@ -35,14 +36,21 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   color: Colors.white,
                   padding: EdgeInsets.only(right: 10.0),
-                  child: Text(title,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 4,
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        color: Color(0xff333333),
-                        fontWeight: FontWeight.w400
-                    ),),
+                  child: Flex(direction: Axis.vertical,children: <Widget>[
+                    Expanded(child: Text(title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          color: Color(0xff333333),
+                          fontWeight: FontWeight.w400
+                      ),)),
+                    Container(
+                      color: Colors.white,
+                      height: 25.0,
+                      child: _createBottomView(),
+                    )
+                  ],),
                 )),
                 Image.network(image,
                   fit: BoxFit.cover,
@@ -51,7 +59,11 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
               ],
             ),
           ),
-          _createBottomView(),
+          SizedBox(height: 10.0,),
+          Divider(
+            color: Color(0xffdedede),
+            height: 1.0,
+          )
         ],
       ),
     );
@@ -60,9 +72,10 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
   /// 构建底部视图
   Widget _createBottomView(){
     return Container(
-      padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
+      height: 25.0,
+      color: Colors.white,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
             child: Text(source,style: TextStyle(
