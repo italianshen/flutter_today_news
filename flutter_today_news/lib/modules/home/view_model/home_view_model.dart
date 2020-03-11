@@ -29,9 +29,8 @@ class HomeViewModel {
       Map responseJson = new Map<String, dynamic>.from(response);
       List dataList = responseJson["data"];
       List<HomeFeedEntity> modelArr = new List();
-      debugPrint("😀dataList:${dataList}");
+      debugPrint("😀category:$category====${dataList.length}");
       dataList.forEach((temp){
-        debugPrint("😀temp:${temp}");
         if(temp["content"] != null){
           String content = temp["content"];
           Map<String,dynamic> result = json.decode(content.toString());

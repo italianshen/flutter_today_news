@@ -98,11 +98,19 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
         controller: _refreshController,
         onRefresh: getNewData,
         onLoading: getMoreData,
-        child: ListView.builder(
+        child: dataSource.length != 0 ? ListView.builder(
           itemBuilder: _buildListViewItem,
           controller: _scrollController,
           physics: new AlwaysScrollableScrollPhysics(),
           itemCount: dataSource.length,
+        ): Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset("images/refresh/dropdown_loading_00@2x.png",
+              scale: 1.0,width: 50.0,height: 50.0,),
+            SizedBox(height: 10.0,),
+            Text("暂无数据")
+          ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -125,6 +133,8 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
   /// 创建子视图
   Widget _buildListViewItem(BuildContext context,int index){
     HomeFeedEntity entity = dataSource[index];
+    String image =
+        "http://fdfs.xmcdn.com/group71/M0A/64/40/wKgO2V5BWdnj6dV8AAI81t5f65c279.jpg";
     if(widget.category == "video"){
       debugPrint("🥬1==title:${entity.title}==>url:${entity.shareLargeImage.url}");
       return HomeFeedNewsVideoListItem(
@@ -137,14 +147,26 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
       );
     }
 
+    //gallary_image_count
     if(entity.imageList == null){
-      return HomeFeedNewsNoImageItem(
-          entity.title != null ? entity.title : "标题返回失败",
-          entity.label != null ? entity.label : "",
-          entity.source != null ? entity.source : "未知来源",
-          entity.commentCount.toString() + "评论",
-          entity.publishTime.toString()
-      );
+      debugPrint("🌾title:${ entity.title != null ? entity.title : "标题返回失败"}");
+      if(entity.gallaryImageCount != null){
+        debugPrint("🍅新闻数据data url:${entity.shareLargeImage.url}");
+        return HomeFeedNewsOneImageItem(
+            entity.title != null ? entity.title : "标题返回失败",
+            entity.shareLargeImage.url,
+            entity.source != null ? entity.source : "未知来源",
+            entity.commentCount.toString() + "评论",
+            entity.publishTime.toString());
+      }else{
+        return HomeFeedNewsNoImageItem(
+            entity.title != null ? entity.title : "标题返回失败",
+            entity.label != null ? entity.label : "",
+            entity.source != null ? entity.source : "未知来源",
+            entity.commentCount.toString() + "评论",
+            entity.publishTime.toString()
+        );
+      }
     }else{
       if(entity.imageList.length == 0){//
         debugPrint("🥬3");
@@ -157,7 +179,12 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
         );
       }else if (entity.imageList.length == 1){
         debugPrint("🥬4");
-        return HomeFeedNewsOneImageItem();
+        return HomeFeedNewsOneImageItem(
+            entity.title != null ? entity.title : "标题返回失败",
+            image,
+            entity.source != null ? entity.source : "未知来源",
+            entity.commentCount.toString() + "评论",
+            entity.publishTime.toString());
       }else{
         // 图片
         if (entity.imageList.length >= 3){

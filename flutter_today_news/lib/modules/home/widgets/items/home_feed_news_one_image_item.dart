@@ -15,6 +15,9 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
   /// 时间
   String time = "4小时前";
 
+  /// 构造方法
+  HomeFeedNewsOneImageItem(this.title,this.image,this.source,this.commentCountText,this.time);
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -36,7 +39,9 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
                   alignment: Alignment.topLeft,
                   color: Colors.white,
                   padding: EdgeInsets.only(right: 10.0),
-                  child: Flex(direction: Axis.vertical,children: <Widget>[
+                  child: Flex(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    direction: Axis.vertical,children: <Widget>[
                     Expanded(child: Text(title,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
