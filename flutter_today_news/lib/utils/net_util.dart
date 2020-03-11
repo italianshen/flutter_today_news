@@ -16,4 +16,13 @@ class NetUtil {
     Net().get(url, params,success: success,failure: failure);
   }
 
+  /// 请求个人中心cell数据
+  static void getAccountCellListDataApiData(String url,Map<String,dynamic> params,{Function success, Function failure}){
+    Net().get(url, params,success: success,failure: failure);
+  }
+  /// 请求个人中心我关注的
+  static void getAccountMyAttensionApiData(String url,Map<String,dynamic> params,{Function success, Function failure}){
+    Net().get(url, params,success: success,failure: failure);
+  }
+
 }

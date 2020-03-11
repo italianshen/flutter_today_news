@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/home/api/HomeApi.dart';
 import 'package:flutter_today_news/modules/home/model/home_feed_entity.dart';

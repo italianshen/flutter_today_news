@@ -73,5 +73,4 @@ class HomeApi {
     map["aid"] = 13;
     return map;
   }
-
 }
