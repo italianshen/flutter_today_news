@@ -23,6 +23,24 @@ class HomeViewModel {
     }, failure);
   }
 
+  // 请求视频tab页标题 https://is.snssdk.com/video_api/get_category/v1/?device_id=28881040250&iid=106722086688
+  void requestVideoNavCategoryApiData(Function successHandler, Function failure){
+    _homeApi.requestVideoNavCategoryData((response){
+      Map responseJson = new Map<String, dynamic>.from(response);
+      List dataList = responseJson["data"];
+      /// 解析数据 HomeNavDataData
+      List<HomeNavDataData> dataArr = new List();
+      dataList.forEach((temp){
+        if (temp is Map){
+          HomeNavDataData data = HomeNavDataData.fromJson(temp);
+          dataArr.add(data);
+        }
+      });
+      successHandler(dataArr);
+    }, failure);
+  }
+
+
   /// 获取首页feednews 数据
   void requestHomeFeedNewsApiData(String category,Function success, Function failure){
     _homeApi.requestHomeFeedNewsData(category, (response){

@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/home/model/home_feed_entity.dart';
 import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart';
+import 'package:flutter_today_news/modules/home/widgets/items/home_video_list_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'items/home_ad_feed_item.dart';
-import 'items/home_ad_three_images_item.dart';
-import 'items/home_feed_news_image_item.dart';
-import 'items/home_feed_news_no_image_item.dart';
-import 'items/home_feed_news_one_image_item.dart';
-import 'items/home_feed_news_three_image_item.dart';
-import 'items/home_guide_download_ad_item.dart';
-import 'items/home_video_list_item.dart';
 
 /// 推荐页
-class HomeRecomendPage extends StatefulWidget {
+class VideoTopicPage extends StatefulWidget {
   /// 分类
   String category= "";
 
-  HomeRecomendPage(this.category);
+  VideoTopicPage(this.category);
 
   @override
-  _HomeRecomendPageState createState() => _HomeRecomendPageState();
+  _VideoTopicPageState createState() => _VideoTopicPageState();
 }
 
-class _HomeRecomendPageState extends State<HomeRecomendPage> with
+class _VideoTopicPageState extends State<VideoTopicPage> with
     AutomaticKeepAliveClientMixin{
   @override
   bool get wantKeepAlive => true;
@@ -135,67 +128,13 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
     HomeFeedEntity entity = dataSource[index];
     String image =
         "http://fdfs.xmcdn.com/group71/M0A/64/40/wKgO2V5BWdnj6dV8AAI81t5f65c279.jpg";
-    if(widget.category == "video"){
-      debugPrint("🥬1==title:${entity.title}==>url:${entity.shareLargeImage.url}");
-      return HomeFeedNewsVideoListItem(
-          entity.title,
-          entity.readCount.toString() + "次播放",
-          "01:39",
-          entity.shareLargeImage.url,
-          entity.mediaInfo.avatarUrl,
-          entity.mediaInfo.name
-      );
-    }
-
-    //gallary_image_count
-    if(entity.imageList == null){
-      debugPrint("🌾title:${ entity.title != null ? entity.title : "标题返回失败"}");
-      if(entity.gallaryImageCount != null){
-        debugPrint("🍅新闻数据data url:${entity.shareLargeImage.url}");
-        return HomeFeedNewsOneImageItem(
-            entity.title != null ? entity.title : "标题返回失败",
-            entity.shareLargeImage.url,
-            entity.source != null ? entity.source : "未知来源",
-            entity.commentCount.toString() + "评论",
-            entity.publishTime.toString());
-      }else{
-        return HomeFeedNewsNoImageItem(
-            entity.title != null ? entity.title : "标题返回失败",
-            entity.label != null ? entity.label : "",
-            entity.source != null ? entity.source : "未知来源",
-            entity.commentCount.toString() + "评论",
-            entity.publishTime.toString()
-        );
-      }
-    }else{
-      if(entity.imageList.length == 0){//
-        debugPrint("🥬3");
-        return HomeFeedNewsNoImageItem(
-            entity.title != null ? entity.title : "标题返回失败",
-            entity.label != null ? entity.label : "",
-            entity.source != null ? entity.source : "未知来源",
-            entity.commentCount.toString() + "评论",
-            entity.publishTime.toString()
-        );
-      }else if (entity.imageList.length == 1){
-        debugPrint("🥬4");
-        return HomeFeedNewsOneImageItem(
-            entity.title != null ? entity.title : "标题返回失败",
-            entity.shareLargeImage.url,
-            entity.source != null ? entity.source : "未知来源",
-            entity.commentCount.toString() + "评论",
-            entity.publishTime.toString());
-      }else{
-        // 图片
-        if (entity.imageList.length >= 3){
-          List imageList = entity.imageList.map((temp)=>temp.url).toList();
-          return HomeFeedNewsThreeImageItem(
-              entity.title != null ? entity.title : "标题返回失败",
-              imageList,
-              entity.commentCount.toString() + "评论",
-              entity.source != null ? entity.source : "未知来源");
-        }
-      }
-    }
+    return HomeFeedNewsVideoListItem(
+        entity.title,
+        entity.readCount.toString() + "次播放",
+        "01:39",
+        entity.shareLargeImage.url,
+        entity.mediaInfo.avatarUrl,
+        entity.mediaInfo.name
+    );
   }
 }

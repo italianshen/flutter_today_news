@@ -18,6 +18,19 @@ class HomeApi {
     });
   }
 
+  /// MARK: - 获取视频nav分类标题数据
+  void requestVideoNavCategoryData(Function success, Function failure){
+    String path = NetUrl.VIDEO_NAV_TITLE_URL;
+    Map<String,dynamic> params = videoNavTabParams();
+    debugPrint("请求的地址:$path");
+    debugPrint("请求的参数:$params");
+    NetUtil.getVideoNavCategoryData(path, params,success: (responseJson){
+      success(responseJson);
+    },failure: (error){
+      failure(error);
+    });
+  }
+
 
   /// 获取首页分类数据 HomeFeedEntity
   void requestHomeFeedNewsData(String category,Function success, Function failure){
@@ -31,6 +44,14 @@ class HomeApi {
     },failure: (error){
       failure(error);
     });
+  }
+
+  /// MARK: - video顶部nav数据
+  Map<String,dynamic> videoNavTabParams(){
+    var map = new Map<String,dynamic>();
+    map["device_id"] = 28881040250;// 6096495334 //28881040250
+    map["iid"] = 106722086688;
+    return map;
   }
 
   /// MARK: - 首页feednews数据

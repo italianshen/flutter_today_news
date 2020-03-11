@@ -23,14 +23,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   TabController _tabController;
   /// 推荐
   HomeRecomendPage homePage;
-  /// 热点
-  HomeFocusPage focusPage;
-  /// 视频
-  HomeVideosPage videoPage;
-  /// 深圳
-  HomeLocationNewsPage locationNewsPage;
-  /// 问答页
-  HomeWendaPage wendaPage;
   /// 列表页
   List<Widget> tabPages;
 
