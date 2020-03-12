@@ -52,6 +52,7 @@ flutter:
    - images/home/
    - images/refresh/
    - images/mine/
+   - config/weitoutiao_data.json
 
   #  - images/a_dot_ham.jpeg tabBar
 

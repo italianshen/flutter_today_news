@@ -5,6 +5,7 @@ import 'package:flutter_today_news/modules/account/model/my_attension_entity.dar
 import 'package:flutter_today_news/modules/account/view_model/account_view_model.dart';
 import 'MineItemWidget.dart';
 import 'account_header_view.dart';
+import 'my_attension_view.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -56,11 +57,11 @@ class _AccountPageState extends State<AccountPage> {
   }
 
 
+  /// 创建内容视图
   Widget _createLiveContentView(){
-    double screenW = MediaQuery.of(context).size.width;
     final double topPadding = MediaQuery.of(context).padding.top;
-    double headerH = ScreenUtil().setWidth(topPadding == 44.0 ? 380 : 290.0);
-    double concernH = ScreenUtil().setWidth(114);
+    double headerH = topPadding == 44.0 ? 280 : 260.0;
+    double concernH = 114;
     return  Container(
       child: CustomScrollView(
         slivers: <Widget>[
@@ -75,12 +76,19 @@ class _AccountPageState extends State<AccountPage> {
           ///我的关注
           SliverToBoxAdapter(
             child: Container(
+              height: 10.0,
+              child: Container(
+                color: Color(0xffdedede),
+              ),
+            ),
+          ),
+          ///我的关注
+          SliverToBoxAdapter(
+            child: Container(
               padding: EdgeInsets.only(bottom: 10.0),
               color: Colors.white,
               height: concernH,
-              child: Container(
-                color: Colors.orange,
-              ),
+              child: MyAttensionView(),
             ),
           ),
           _layoutContentView(),
@@ -95,9 +103,9 @@ class _AccountPageState extends State<AccountPage> {
       child: Container(
         padding: EdgeInsets.only(bottom: 10.0),
         color: Colors.white,
-        height: 100,
+        height: 300,
         child: Container(
-          color: Colors.green,
+          color: Colors.white,
         ),
       ),
     ) : SliverList(
