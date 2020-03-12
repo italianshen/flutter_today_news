@@ -39,7 +39,7 @@ class MineItemWidget extends StatelessWidget{
               flex: 1,
               child: Container(
                 padding: EdgeInsets.only(left: 16.0),
-                child: Image.asset(imageName,width: 30,height: 30,),
+                child: Image.network(imageName,width: 24,height: 24,)
               )
           ),
           Expanded(

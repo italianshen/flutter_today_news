@@ -51,6 +51,7 @@ flutter:
    - images/tabBar/
    - images/home/
    - images/refresh/
+   - images/mine/
 
   #  - images/a_dot_ham.jpeg tabBar
 

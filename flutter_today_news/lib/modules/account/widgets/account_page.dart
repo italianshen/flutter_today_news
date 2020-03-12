@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_today_news/modules/account/model/account_cell_data_entity.dart';
 import 'package:flutter_today_news/modules/account/model/my_attension_entity.dart';
 import 'package:flutter_today_news/modules/account/view_model/account_view_model.dart';
 import 'MineItemWidget.dart';
+import 'account_header_view.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -15,6 +18,8 @@ class _AccountPageState extends State<AccountPage> {
   /// 视图模型
   AccountViewModel _viewModel;
 
+  /// cell的数据源
+  List<AccountCellEntity> dataSource;
 
   @override
   void initState() {
@@ -25,80 +30,101 @@ class _AccountPageState extends State<AccountPage> {
 
     /// 请求数据
     _viewModel.requestCellListData((responseJson){
-      debugPrint("🍎responseJson1:${responseJson}");
+      // AccountSectionEntity
+      Map responseDict = Map.from(responseJson);
+      Map dataDict = Map.from(responseDict["data"]);
+      Map dataJson= new Map<String, dynamic>.from(dataDict);
+      AccountSectionEntity entity = AccountSectionEntity.fromJson(dataJson);
+      setState(() {
+        this.dataSource = entity.sections;
+      });
     }, (error){
       debugPrint("error:${error}");
     });
 
     _viewModel.requestMyAttentionListData((responseJson){
-      debugPrint("🍎responseJson2:${responseJson}");
+//      debugPrint("🍎responseJson2:${responseJson}");
     }, (error){
       debugPrint("error:${error}");
     });
-
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("我的"),
-          leading: GestureDetector(
-            child: Icon(Icons.email),
-            onTap: (){
-              debugPrint("点击了邮箱");
-            },
-          ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 0.0),
-                child: FlatButton(onPressed: (){
-                  debugPrint("点击了设置");
-                }, child: Icon(Icons.settings),
-                  textColor: Colors.white,
-                )
-            )
-//          SizedBox(width: 15.0,)
-          ],
-        ),
-        body: Container(
-          color: Color.fromRGBO(245, 245, 245, 1),
-          child: ListView(
-            children: <Widget>[
-              MineItemWidget("images/moneyMount@3x.png", "钱包",onTap: (){
-                debugPrint("免费赚钱");
-              },),
-              MineItemWidget("images/shalou@3x.png", "消息通知",onTap: (){
-                debugPrint("免流量服务");
-              },),
+    return _createLiveContentView();
+  }
 
-              _listViewLine,
-              MineItemWidget("images/scan@3x.png", "免流量服务",onTap: (){
-                debugPrint("免流量服务");
-              },),
-              MineItemWidget("images/moon@3x.png", "广告推广",onTap: (){
-                //ThemeSettingPage
 
-              },),
-              _listViewLine,
-              MineItemWidget("images/advice@3x.png", "用户反馈",onTap: (){
-                debugPrint("帮助与反馈");
-              },),
-              MineItemWidget("images/advice@3x.png", "系统设置",onTap: (){
-                debugPrint("系统设置");
-              },),
-            ],
+  Widget _createLiveContentView(){
+    double screenW = MediaQuery.of(context).size.width;
+    final double topPadding = MediaQuery.of(context).padding.top;
+    double headerH = ScreenUtil().setWidth(topPadding == 44.0 ? 380 : 290.0);
+    double concernH = ScreenUtil().setWidth(114);
+    return  Container(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Container(
+              height: headerH,
+              color: Colors.white,
+              // 登录部分
+              child: AccountHeaderView(),
+            ),
           ),
-        )
+          ///我的关注
+          SliverToBoxAdapter(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 10.0),
+              color: Colors.white,
+              height: concernH,
+              child: Container(
+                color: Colors.orange,
+              ),
+            ),
+          ),
+          _layoutContentView(),
+        ],
+      ),
     );
   }
 
-  // 分割线
-  Widget get _listViewLine {
+  /// 布局内容部分视图
+  Widget _layoutContentView(){
+    return dataSource == null ?  SliverToBoxAdapter(
+      child: Container(
+        padding: EdgeInsets.only(bottom: 10.0),
+        color: Colors.white,
+        height: 100,
+        child: Container(
+          color: Colors.green,
+        ),
+      ),
+    ) : SliverList(
+      delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+          return _buildListViewItem(context, index);
+        },
+        childCount: dataSource.length * 2,
+      ),
+    );
+  }
+
+
+  Widget _buildListViewItem(BuildContext context,int index){
+    int idx = index ~/ 2;
+    AccountCellEntity entity = dataSource[idx];
+    debugPrint("🍏index:${index}====idx:${idx}===text:${entity.text}");
+    return (index.isOdd) ? MineItemWidget(entity.icons.day.url, entity.text,onTap: (){
+      debugPrint("text:${entity.text}");
+    },) : (idx.isOdd ? _listViewLine(1.0) : (idx == 0 ? _listViewLine(0.0) : _listViewLine(10.0)));
+  }
+
+  /// 分割线
+  Widget _listViewLine(double height) {
     return Container(
       color: Color(0xffeaeaea),
-      height: 10,
+      height: height,
     );
   }
 }

@@ -11,8 +11,6 @@ class EntityFactory {
       return HomeFeedEntity.fromJson(json) as T;
     } else if (T.toString() == "HomeNavEntity") {
       return HomeNavEntity.fromJson(json) as T;
-    } else if (T.toString() == "AccountCellDataEntity") {
-      return AccountCellDataEntity.fromJson(json) as T;
     } else if (T.toString() == "MyAttensionEntity") {
       return MyAttensionEntity.fromJson(json) as T;
     } else {
