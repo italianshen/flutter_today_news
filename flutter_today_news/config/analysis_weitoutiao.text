@@ -1,0 +1,22 @@
+1. 转发微头条  img/weitoutiao/weitoutiao_1.png
+   is_repost = 1
+   说说文本字段content_unescape/content
+
+   原有动态内容：origin_thread->content_unescape/content
+   九宫格图片 ugc_cut_image_list  ( origin_thread->ugc_cut_image_list)
+   875阅读 read_count
+   forward_count 转发数
+   comment_count 评论数
+   digg_count 点赞数
+2. is_repost = 0 原创微头条
+   动态内容 content
+      九宫格图片 ugc_cut_image_list
+      875阅读 read_count
+      forward_count 转发数
+      comment_count 评论数
+      digg_count 点赞数
+
+3. article_item 发布了文章  media_type 1 图文 media_type 2 视频
+
+ 视频 read_count 播放   comment_count 评论数
+      digg_count 点赞数

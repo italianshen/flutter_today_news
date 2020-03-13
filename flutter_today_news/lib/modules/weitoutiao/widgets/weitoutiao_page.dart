@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/model/weitoutiao_entity.dart';
 import 'dart:convert';
+import 'dart:math';
+
+import 'package:flutter_today_news/modules/weitoutiao/model/weitoutiao_list_entity.dart';
+import 'package:flutter_today_news/modules/weitoutiao/widgets/weitou_retwittered_item.dart';
+import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_article_item.dart';
+import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_origin_thread_item.dart';
 
 class WeitoutiaoPage extends StatefulWidget {
   @override
@@ -9,20 +15,13 @@ class WeitoutiaoPage extends StatefulWidget {
 
 class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
   /// 數據源
-  List<WeitoutiaoEntity> dataSource = new List();
+  List<WeitoutiaoListEntity> dataSource = new List();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("微头条"),
-          leading: Icon(Icons.mail),
-          actions: <Widget>[
-            Container(
-              padding: EdgeInsets.only(right: 15.0),
-              child: Icon(Icons.search),
-            )
-          ],
         ),
         body: _createContentView(context)
     );
@@ -37,11 +36,11 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
             Map map = json.decode(memberListJson);
             Map data = map["data"];
             List<dynamic> list = data["data"];
-            dataSource = list.map((temp) => WeitoutiaoEntity.fromJson(temp)).toList();
+            dataSource = list.map((temp) => WeitoutiaoListEntity.fromJson(temp)).toList();
             print("🐸dataSource:${dataSource.length}");
             return ListView.builder(
+              shrinkWrap: true,
               itemBuilder: _createListViewItem,
-              itemExtent: 120.0,
               itemCount: dataSource.length,
             );
           }else{
@@ -54,14 +53,114 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
 
 
   Widget _createListViewItem(BuildContext context,int index){
-    WeitoutiaoEntity model = dataSource[index];
-    return
-      Container(
-        padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-        color: Colors.orange,
-        child: Text(model.contentUnescape),
-      );
+    WeitoutiaoListEntity model = dataSource[index];
+    if(model.isRepost == 1){
+      return _createRetweetedViewItem(model);
+    }else{
+      if(model.articleItem == null){
+        return _createOriginalViewItem(model);
+      }else{
+        return _createArticleItem(model);
+      }
+    }
   }
+
+  /// 创建原创微博
+  Widget _createOriginalViewItem(WeitoutiaoListEntity model){
+    /// 原创内容
+    String orginalContent = model.content;
+    /// 原创微头条的作者
+    String screen_name = model.user.screenName;
+    /// 发布动态的人头像
+    String avatar = model.user.avatarUrl;
+    /// 发布动态的人作者
+    String userName = model.user.screenName;
+    /// 发布时间
+    String createTime = model.createTime.toString();
+    /// 图片
+    List<String> images = model.ugcCutImageList.map((temp)=> temp.url).toList();
+    /// 多少人阅读
+    String readText = "875 阅读";
+    /// 点赞数
+    String likeCount = "41万";
+    /// 评论数
+    String commentCount = "46";
+    /// 转发数
+    String forwardCount = "46";
+    /// 位置信息
+    String location = "北京市 朝阳区";
+    return WeitoutiaoOriginItem(orginalContent, screen_name, avatar, userName, createTime, images, readText, likeCount, commentCount, forwardCount, location);
+  }
+
+  /// 创建转发微头条
+  Widget _createRetweetedViewItem(WeitoutiaoListEntity model){
+    /// 转发内容
+    String retwitterContent = model.content;
+    /// 原创内容
+    String orginalContent = model.originThread.content;
+    /// 原创微头条的作者
+    String screen_name = model.user.screenName;
+    /// 发布动态的人头像
+    String avatar = model.user.avatarUrl;
+    /// 发布动态的人作者
+    String userName = model.user.screenName;
+    /// 发布时间
+    String createTime = model.createTime.toString();
+    List<String> images = model.originThread.ugcCutImageList.map((temp)=> temp.url).toList();
+
+    /// 多少人阅读
+    String readText = model.readCount.toString() + " 阅读";
+    /// 点赞数
+    String likeText = model.diggCount.toString();
+    /// 评论数
+    String commentText = model.commentCount.toString();
+    /// 转发数
+    String forwardText = model.forwardCount.toString();
+    return WeitoutiaoRetwitteredItem(retwitterContent, orginalContent, screen_name, avatar, userName, createTime, images, readText, likeText, commentText, forwardText);
+  }
+
+
+  /// 创建发布的文章
+  Widget _createArticleItem(WeitoutiaoListEntity model){
+    /// 原创内容
+    String orginalContent = model.content;
+    /// 发布动态的人头像
+    String avatar = model.user.avatarUrl;
+    /// 发布动态的人作者
+    String userName = model.user.screenName;
+    /// 发布时间
+    String createTime = model.createTime.toString();
+    /// 文章标题
+    String articleTitle = model.articleItem.title;
+    /// 多少人阅读
+    String readText = model.readCount.toString() + " 阅读";
+    /// 点赞数
+    String likeText = model.diggCount.toString() + "赞";
+    /// 评论数
+    String commentText = model.commentCount.toString() + "评论";
+    /// 位置信息  readText +  likeText +  commentText
+    String location = "";
+    /// 发布的类型 media_type 1 图文 media_type 2 视频
+    int mediaType = model.articleItem.mediaType;
+    return
+      WeitoutiaoAricleItem(
+          orginalContent,
+          avatar,
+          userName,
+          createTime,
+          articleTitle,
+          readText, likeText, commentText, "",mediaType);
+  }
+
+  /// 随机颜色
+  Color getRandomColor() {
+    return Color.fromARGB(
+        255,
+        Random.secure().nextInt(255),
+        Random.secure().nextInt(255),
+        Random.secure().nextInt(255));
+  }
+
 
 
 }
