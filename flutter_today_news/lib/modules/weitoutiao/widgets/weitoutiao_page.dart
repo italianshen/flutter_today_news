@@ -107,7 +107,6 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
     /// 发布时间
     String createTime = model.createTime.toString();
     List<String> images = model.originThread.ugcCutImageList.map((temp)=> temp.url).toList();
-
     /// 多少人阅读
     String readText = model.readCount.toString() + " 阅读";
     /// 点赞数

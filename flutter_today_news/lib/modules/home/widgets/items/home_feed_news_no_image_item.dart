@@ -18,7 +18,7 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(title,style: TextStyle(
-            fontSize: 14.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.w400,
             color: Color(0xff333333)
           ),),
