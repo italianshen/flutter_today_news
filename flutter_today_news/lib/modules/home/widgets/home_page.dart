@@ -4,6 +4,7 @@ import 'package:flutter_today_news/consts/theme_model.dart';
 import 'package:flutter_today_news/modules/home/model/home_nav_entity.dart';
 import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart';
 import 'HomeAppBarView.dart';
+import 'channel_management_page.dart';
 import 'home_recoment_page.dart';
 
 
@@ -92,12 +93,32 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: Icon(Icons.add),
               onTap: (){
                 debugPrint("首页加号被点击了");
+                _showChannelManagePage(context);
               },
             ),
           )
         ],
       ),
     );
+  }
+
+  /// 跳转到频道管理页
+  void _showChannelManagePage(BuildContext context){
+    double topPadding = MediaQuery.of(context).padding.top;
+    double contentViewHeight = MediaQuery.of(context).size.height - topPadding;
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0)
+        )
+      ),
+        context: context, builder: (BuildContext context){
+      return Container(
+        height: contentViewHeight,
+        child: ChannelManagementPage(),
+      );
+    });
   }
 
   /// 初始化内容列表

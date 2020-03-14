@@ -3,7 +3,6 @@ import 'package:flutter_today_news/utils/gif_header.dart';
 import 'app.dart';
 import 'consts/theme_model.dart';
 import 'loading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -11,6 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: navBarTintColor

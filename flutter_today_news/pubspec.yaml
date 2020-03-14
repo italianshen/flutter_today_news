@@ -28,6 +28,7 @@ dependencies:
   flutter_screenutil: ^1.0.2
   pull_to_refresh: ^1.5.7
   flutter_webview_plugin: ^0.3.0
+  flutter_swiper: ^1.1.6
 
 dev_dependencies:
   flutter_test:
