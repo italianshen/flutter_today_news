@@ -56,7 +56,7 @@ class HomeAppBar extends StatelessWidget {
     );
   }
 
-
+  
   Widget _createLoopView1(BuildContext context){
     double appLogoWidth = 72.0;
     double appLogoLeftMargin = 15.0;

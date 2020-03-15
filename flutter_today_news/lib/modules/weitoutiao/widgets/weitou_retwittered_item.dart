@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_toolbar_view.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_userinfo_view.dart';
-
 // 转发微头条
 
 class WeitoutiaoRetwitteredItem extends StatefulWidget {
@@ -150,10 +149,17 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
                 childAspectRatio: 1.0
             ),
             itemBuilder: (BuildContext context,int index){
-              return Image.network(widget.images[index],fit: BoxFit.cover,);
+              return InkWell(
+                 child: Image.network(widget.images[index],fit: BoxFit.cover,),
+                 onTap: (){
+                          //FadeRoute是自定义的切换过度动画（渐隐渐现） 如果不需要 可以使用默认的MaterialPageRoute
+                 },
+                );
             })
     );
   }
+
+  //PhotoViewGalleryScreen
 
   /// 多少人已阅读
   Widget _buildReadCountView(){
@@ -175,4 +181,24 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
     );
   }
 
+}
+
+
+class FadeRoute extends PageRouteBuilder {
+    final Widget page;
+    FadeRoute({this.page}): super(
+        pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+        ) =>page,transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+        ) =>FadeTransition(
+            opacity: animation,
+            child: child,
+        ),
+    );
 }
