@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_toolbar_view.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_userinfo_view.dart';
+import 'package:flutter_today_news/utils/fade_route.dart';
+import 'package:flutter_today_news/utils/photoview_gallery_screen.dart';
 
 class WeitoutiaoOriginItem extends StatelessWidget {
 
@@ -113,7 +115,17 @@ class WeitoutiaoOriginItem extends StatelessWidget {
                 childAspectRatio: 1.0
             ),
             itemBuilder: (BuildContext context,int index){
-              return Image.network(images[index],fit: BoxFit.cover,);
+              return InkWell(
+                child: Image.network(images[index],fit: BoxFit.cover,),
+                onTap: (){
+                  //FadeRoute是自定义的切换过度动画（渐隐渐现） 如果不需要 可以使用默认的MaterialPageRoute
+                  Navigator.of(context).push(new FadeRoute(page: PhotoViewGalleryScreen(
+                    images:images,//传入图片list
+                    index: index,//传入当前点击的图片的index
+                    heroTag: images[index],//传入当前点击的图片的hero tag （可选）
+                  )));
+                },
+              );
             })
     );
   }
