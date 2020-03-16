@@ -50,7 +50,7 @@ class _VideoPageState extends State<VideoPage> with SingleTickerProviderStateMix
         _tabController = TabController(length: _tabs.length, vsync: this);
       });
     }, (error){
-      debugPrint("😂error:${error}");
+      debugPrint("😂error:$error");
     });
   }
 

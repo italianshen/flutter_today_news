@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_today_news/modules/weitoutiao/model/weitoutiao_entity.dart';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter_today_news/modules/weitoutiao/model/weitoutiao_list_entity.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitou_retwittered_item.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_article_item.dart';
@@ -70,7 +68,7 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
     /// 原创内容
     String orginalContent = model.content;
     /// 原创微头条的作者
-    String screen_name = model.user.screenName;
+    String screenName = model.user.screenName;
     /// 发布动态的人头像
     String avatar = model.user.avatarUrl;
     /// 发布动态的人作者
@@ -89,7 +87,7 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
     String forwardCount = "46";
     /// 位置信息
     String location = "北京市 朝阳区";
-    return WeitoutiaoOriginItem(orginalContent, screen_name, avatar, userName, createTime, images, readText, likeCount, commentCount, forwardCount, location);
+    return WeitoutiaoOriginItem(orginalContent, screenName, avatar, userName, createTime, images, readText, likeCount, commentCount, forwardCount, location);
   }
 
   /// 创建转发微头条
@@ -99,7 +97,7 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
     /// 原创内容
     String orginalContent = model.originThread.content;
     /// 原创微头条的作者
-    String screen_name = model.user.screenName;
+    String screenName = model.user.screenName;
     /// 发布动态的人头像
     String avatar = model.user.avatarUrl;
     /// 发布动态的人作者
@@ -115,7 +113,7 @@ class _WeitoutiaoPageState extends State<WeitoutiaoPage> {
     String commentText = model.commentCount.toString();
     /// 转发数
     String forwardText = model.forwardCount.toString();
-    return WeitoutiaoRetwitteredItem(retwitterContent, orginalContent, screen_name, avatar, userName, createTime, images, readText, likeText, commentText, forwardText);
+    return WeitoutiaoRetwitteredItem(retwitterContent, orginalContent, screenName, avatar, userName, createTime, images, readText, likeText, commentText, forwardText);
   }
 
 

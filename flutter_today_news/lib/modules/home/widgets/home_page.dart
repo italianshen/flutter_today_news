@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         _tabController = TabController(length: _tabs.length, vsync: this);
       });
     }, (error){
-      debugPrint("😂error:${error}");
+      debugPrint("😂error:$error");
     });
   }
 
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               category = model.category;
             }
           });
-          debugPrint("🍎category:${category}");
+          debugPrint("🍎category:$category");
           return HomeRecomendPage(category);
         }).toList(),
     );

@@ -4,13 +4,9 @@ import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart'
 import 'package:flutter_today_news/modules/web_page/WebviewDetailPage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'items/home_ad_feed_item.dart';
-import 'items/home_ad_three_images_item.dart';
-import 'items/home_feed_news_image_item.dart';
 import 'items/home_feed_news_no_image_item.dart';
 import 'items/home_feed_news_one_image_item.dart';
 import 'items/home_feed_news_three_image_item.dart';
-import 'items/home_guide_download_ad_item.dart';
 import 'items/home_video_list_item.dart';
 
 /// 推荐页
@@ -90,7 +86,6 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("🌾");
     return Scaffold(
       body:SmartRefresher(
         enablePullDown: true,
@@ -148,8 +143,6 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
   /// 创建子视图
   Widget _buildListViewItem(BuildContext context,int index){
     HomeFeedEntity entity = dataSource[index];
-    String image =
-        "http://fdfs.xmcdn.com/group71/M0A/64/40/wKgO2V5BWdnj6dV8AAI81t5f65c279.jpg";
     if(widget.category == "video"){
       debugPrint("🥬1==title:${entity.title}==>url:${entity.shareLargeImage.url}");
       return InkWell(
@@ -165,45 +158,25 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
           _goToNewsDetailPage(context, index);
         },
       );
-    }
-
-    //gallary_image_count
-    if(entity.imageList == null){
-      debugPrint("🌾title:${ entity.title != null ? entity.title : "标题返回失败"}");
-      if(entity.gallaryImageCount != null){
-        debugPrint("🍅新闻数据data url:${entity.shareLargeImage.url}");
-        return InkWell(
-          child: HomeFeedNewsOneImageItem(
-              entity.title != null ? entity.title : "标题返回失败",
-              entity.shareLargeImage.url,
-              entity.source != null ? entity.source : "未知来源",
-              entity.commentCount.toString() + "评论",
-              entity.publishTime.toString()),
-          onTap: (){
-            _goToNewsDetailPage(context, index);
-          },
-        );
-      }else{
-
-
-        return InkWell(
-          child: HomeFeedNewsNoImageItem(
-              entity.title != null ? entity.title : "标题返回失败",
-              entity.label != null ? entity.label : "",
-              entity.source != null ? entity.source : "未知来源",
-              entity.commentCount.toString() + "评论",
-              entity.publishTime.toString()
-          ),
-          onTap: (){
-            _goToNewsDetailPage(context, index);
-          },
-        );
-      }
     }else{
-      if(entity.imageList.length == 0){//
-        debugPrint("🥬3");
-        return
-          InkWell(
+      //gallary_image_count
+      if(entity.imageList == null){
+        debugPrint("🌾title:${ entity.title != null ? entity.title : "标题返回失败"}");
+        if(entity.gallaryImageCount != null){
+          debugPrint("🍅新闻数据data url:${entity.shareLargeImage.url}");
+          return InkWell(
+            child: HomeFeedNewsOneImageItem(
+                entity.title != null ? entity.title : "标题返回失败",
+                entity.shareLargeImage.url,
+                entity.source != null ? entity.source : "未知来源",
+                entity.commentCount.toString() + "评论",
+                entity.publishTime.toString()),
+            onTap: (){
+              _goToNewsDetailPage(context, index);
+            },
+          );
+        }else{
+          return InkWell(
             child: HomeFeedNewsNoImageItem(
                 entity.title != null ? entity.title : "标题返回失败",
                 entity.label != null ? entity.label : "",
@@ -215,35 +188,55 @@ class _HomeRecomendPageState extends State<HomeRecomendPage> with
               _goToNewsDetailPage(context, index);
             },
           );
-      }else if (entity.imageList.length == 1){
-        debugPrint("🥬4");
-        return
-          InkWell(
-            child: HomeFeedNewsOneImageItem(
-                entity.title != null ? entity.title : "标题返回失败",
-                entity.shareLargeImage.url,
-                entity.source != null ? entity.source : "未知来源",
-                entity.commentCount.toString() + "评论",
-                entity.publishTime.toString()),
-            onTap: (){
-              _goToNewsDetailPage(context, index);
-            },
-          );
+        }
       }else{
-        // 图片
-        if (entity.imageList.length >= 3){
-          List imageList = entity.imageList.map((temp)=>temp.url).toList();
+        if(entity.imageList.length == 0){//
+          debugPrint("🥬3");
           return
             InkWell(
-              child: HomeFeedNewsThreeImageItem(
+              child: HomeFeedNewsNoImageItem(
                   entity.title != null ? entity.title : "标题返回失败",
-                  imageList,
+                  entity.label != null ? entity.label : "",
+                  entity.source != null ? entity.source : "未知来源",
                   entity.commentCount.toString() + "评论",
-                  entity.source != null ? entity.source : "未知来源"),
+                  entity.publishTime.toString()
+              ),
               onTap: (){
                 _goToNewsDetailPage(context, index);
               },
             );
+        }else if (entity.imageList.length == 1){
+          debugPrint("🥬4");
+          return
+            InkWell(
+              child: HomeFeedNewsOneImageItem(
+                  entity.title != null ? entity.title : "标题返回失败",
+                  entity.shareLargeImage.url,
+                  entity.source != null ? entity.source : "未知来源",
+                  entity.commentCount.toString() + "评论",
+                  entity.publishTime.toString()),
+              onTap: (){
+                _goToNewsDetailPage(context, index);
+              },
+            );
+        }else{
+          // 图片
+          if (entity.imageList.length >= 3){
+            List imageList = entity.imageList.map((temp)=>temp.url).toList();
+            return
+              InkWell(
+                child: HomeFeedNewsThreeImageItem(
+                    entity.title != null ? entity.title : "标题返回失败",
+                    imageList,
+                    entity.commentCount.toString() + "评论",
+                    entity.source != null ? entity.source : "未知来源"),
+                onTap: (){
+                  _goToNewsDetailPage(context, index);
+                },
+              );
+          }else{
+            return Container();
+          }
         }
       }
     }

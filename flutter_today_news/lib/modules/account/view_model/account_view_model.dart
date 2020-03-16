@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_today_news/modules/account/api/account_api.dart';
 
 class AccountViewModel {

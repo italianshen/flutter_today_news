@@ -82,7 +82,6 @@ class _VideoTopicPageState extends State<VideoTopicPage> with
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("🌾");
     return Scaffold(
       body:SmartRefresher(
         enablePullDown: true,
@@ -126,8 +125,6 @@ class _VideoTopicPageState extends State<VideoTopicPage> with
   /// 创建子视图
   Widget _buildListViewItem(BuildContext context,int index){
     HomeFeedEntity entity = dataSource[index];
-    String image =
-        "http://fdfs.xmcdn.com/group71/M0A/64/40/wKgO2V5BWdnj6dV8AAI81t5f65c279.jpg";
     return HomeFeedNewsVideoListItem(
         entity.title,
         entity.readCount.toString() + "次播放",

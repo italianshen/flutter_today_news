@@ -7,7 +7,7 @@ class WeitoutiaoOriginItem extends StatelessWidget {
   /// 原创内容
   String orginalContent = "早上来上海观复博物馆时，工作人员正在做开馆前的准备，随手拍了几张无人时的照片。在上海中心大厦37层上，又一次印证了我的办馆理念：没来时不能想象，来了也不能复述。";
   /// 原创微头条的作者
-  String screen_name = "马未都";
+  String screenName = "马未都";
   /// 发布动态的人头像
   String avatar = "http://p9.pstatp.com/thumb/2c5e0004a6385965f1b6";
   /// 发布动态的人作者
@@ -39,7 +39,7 @@ class WeitoutiaoOriginItem extends StatelessWidget {
   /// 原创微头条
   WeitoutiaoOriginItem(
       this.orginalContent,
-      this.screen_name,
+      this.screenName,
       this.avatar,
       this.userName,
       this.createTime,
@@ -73,20 +73,6 @@ class WeitoutiaoOriginItem extends StatelessWidget {
     );
   }
 
-  /// 转发的内容部分
-  Widget _buildRetwitterContentView(){
-    return Container(
-      padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 10.0),
-      child: Text(
-        orginalContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontSize: 16.0
-        ),
-      ),
-    );
-  }
-
   /// 原创内容
   Widget _buildOrignThreadContentView(BuildContext context){
     return Container(
@@ -94,7 +80,7 @@ class WeitoutiaoOriginItem extends StatelessWidget {
       padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 15.0,top: 0.0),
       child: Column(
         children: <Widget>[
-          Text(screen_name + orginalContent,style: TextStyle(
+          Text(screenName + orginalContent,style: TextStyle(
               fontSize: 16.0,
               color: Colors.black
           ),),

@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/utils/net_util.dart';
 import 'package:flutter_today_news/utils/net_url.dart';
 class HomeApi {
-
-  final Dio _dio = new Dio();
   /// MARK: - 获取首页nav分类标题数据
   void requestNavCategoryData(Function success, Function failure){
     String path = NetUrl.HOME_NAV_TITLE_URL;

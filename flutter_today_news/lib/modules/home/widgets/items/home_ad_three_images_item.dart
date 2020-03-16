@@ -21,7 +21,6 @@ class HomeAdThreeImagesFeedItem extends StatelessWidget {
     double margin = 15.0;
     double itemMargin = 5.0;
     // 4/3图片
-    double picWidth = (screenWidth - 2.0 * margin - 2.0 * itemMargin)/3.0 ;
     double picHeight = (screenWidth - 2.0 * margin - 2.0 * itemMargin)/3.0 * 3.0/4.0;
 
     return Container(

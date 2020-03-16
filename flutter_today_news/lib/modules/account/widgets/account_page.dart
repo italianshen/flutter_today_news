@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_today_news/modules/account/model/account_cell_data_entity.dart';
 import 'package:flutter_today_news/modules/account/model/my_attension_entity.dart';
 import 'package:flutter_today_news/modules/account/view_model/account_view_model.dart';
@@ -40,13 +39,13 @@ class _AccountPageState extends State<AccountPage> {
         this.dataSource = entity.sections;
       });
     }, (error){
-      debugPrint("error:${error}");
+      debugPrint("error:$error");
     });
 
     _viewModel.requestMyAttentionListData((responseJson){
 //      debugPrint("🍎responseJson2:${responseJson}");
     }, (error){
-      debugPrint("error:${error}");
+      debugPrint("error:$error");
     });
   }
 
@@ -122,7 +121,6 @@ class _AccountPageState extends State<AccountPage> {
   Widget _buildListViewItem(BuildContext context,int index){
     int idx = index ~/ 2;
     AccountCellEntity entity = dataSource[idx];
-    debugPrint("🍏index:${index}====idx:${idx}===text:${entity.text}");
     return (index.isOdd) ? MineItemWidget(entity.icons.day.url, entity.text,onTap: (){
       debugPrint("text:${entity.text}");
     },) : (idx.isOdd ? _listViewLine(1.0) : (idx == 0 ? _listViewLine(0.0) : _listViewLine(10.0)));

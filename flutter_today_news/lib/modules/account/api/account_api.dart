@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/utils/net_util.dart';
 import 'package:flutter_today_news/utils/net_url.dart';
 
 class AccountApi {
-
-  final Dio _dio = new Dio();
 
   /// MARK: - 请求cell列表数据
   void requestCellListData(Function success, Function failure){

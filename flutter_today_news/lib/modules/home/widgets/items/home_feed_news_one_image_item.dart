@@ -20,7 +20,6 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double picWidth = ScreenUtil().setWidth(218);
     double picHeight = picWidth * 130/218;//130/218
     return Container(

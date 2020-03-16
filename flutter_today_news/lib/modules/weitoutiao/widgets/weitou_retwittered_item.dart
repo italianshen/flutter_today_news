@@ -10,7 +10,7 @@ class WeitoutiaoRetwitteredItem extends StatefulWidget {
   /// 原创内容
   String orginalContent = "早上来上海观复博物馆时，工作人员正在做开馆前的准备，随手拍了几张无人时的照片。在上海中心大厦37层上，又一次印证了我的办馆理念：没来时不能想象，来了也不能复述。";
   /// 原创微头条的作者
-  String screen_name = "马未都";
+  String screenName = "马未都";
 
   /// 发布动态的人头像
   String avatar = "http://p9.pstatp.com/thumb/2c5e0004a6385965f1b6";
@@ -43,7 +43,7 @@ class WeitoutiaoRetwitteredItem extends StatefulWidget {
   WeitoutiaoRetwitteredItem(
       this.retwitterContent,
       this.orginalContent,
-      this.screen_name,
+      this.screenName,
       this.avatar,
       this.userName,
       this.createTime,
@@ -116,11 +116,10 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(widget.screen_name + widget.orginalContent,style: TextStyle(
+          Text(widget.screenName + widget.orginalContent,style: TextStyle(
             fontSize: 16.0,
             color: Colors.black
           ),),
-//          SizedBox(height: 15.0,),
           _buildGirdViewImageContent(context)
         ],
       ),

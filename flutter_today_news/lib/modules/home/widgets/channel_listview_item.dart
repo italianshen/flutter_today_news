@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
 class ChannelDidsplayView extends StatelessWidget {
 
@@ -56,14 +55,5 @@ class ChannelDidsplayView extends StatelessWidget {
         child: Text(titles[index]),
       ),
     );
-  }
-
-  /// 获取随机颜色
-  Color _getRandomColor() {
-    return Color.fromARGB(
-        255,
-        Random.secure().nextInt(255),
-        Random.secure().nextInt(255),
-        Random.secure().nextInt(255));
   }
 }
