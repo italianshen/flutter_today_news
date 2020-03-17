@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_toolbar_view.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_userinfo_view.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
 import 'package:flutter_today_news/utils/fade_route.dart';
 import 'package:flutter_today_news/utils/photoview_gallery_screen.dart';
+import 'package:provider/provider.dart';
 
 class WeitoutiaoOriginItem extends StatelessWidget {
 
@@ -55,8 +57,9 @@ class WeitoutiaoOriginItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -67,9 +70,9 @@ class WeitoutiaoOriginItem extends StatelessWidget {
           _buildOrignThreadContentView(context),
           /// 多少人阅读
           _buildReadCountView(),
-          _listViewLine(1.0),
+          _listViewLine(1.0,context),
           WeitoutiaoToolBarView(likeCount, commentCount, forwardCount),
-          _listViewLine(10.0),
+          _listViewLine(10.0,context),
         ],
       ),
     );
@@ -77,14 +80,15 @@ class WeitoutiaoOriginItem extends StatelessWidget {
 
   /// 原创内容
   Widget _buildOrignThreadContentView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 15.0,top: 0.0),
       child: Column(
         children: <Widget>[
           Text(screenName + orginalContent,style: TextStyle(
               fontSize: 16.0,
-              color: Colors.black
+              color: model.blackColor()
           ),),
 //          SizedBox(height: 15.0,),
           _buildGirdViewImageContent(context)
@@ -171,9 +175,10 @@ class WeitoutiaoOriginItem extends StatelessWidget {
 
 
   /// 分割线
-  Widget _listViewLine(double height) {
+  Widget _listViewLine(double height,BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color(0xffeaeaea),
+      color: model.dividerColor(),
       height: height,
     );
   }

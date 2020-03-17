@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/account/model/account_cell_data_entity.dart';
 import 'package:flutter_today_news/modules/account/model/my_attension_entity.dart';
 import 'package:flutter_today_news/modules/account/view_model/account_view_model.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'MineItemWidget.dart';
 import 'account_header_view.dart';
 import 'my_attension_view.dart';
@@ -61,23 +63,24 @@ class _AccountPageState extends State<AccountPage> {
     final double topPadding = MediaQuery.of(context).padding.top;
     double headerH = topPadding == 44.0 ? 280 : 260.0;
     double concernH = 114;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return  Container(
       child: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Container(
               height: headerH,
-              color: Colors.white,
+              color: model.tableViewBackgroundColor(),
               // 登录部分
               child: AccountHeaderView(),
             ),
           ),
-          ///我的关注
+          ///分割线
           SliverToBoxAdapter(
             child: Container(
               height: 10.0,
               child: Container(
-                color: Color(0xffdedede),
+                color: model.dividerColor(),
               ),
             ),
           ),
@@ -85,7 +88,7 @@ class _AccountPageState extends State<AccountPage> {
           SliverToBoxAdapter(
             child: Container(
               padding: EdgeInsets.only(bottom: 10.0),
-              color: Colors.white,
+              color: model.tableViewBackgroundColor(),
               height: concernH,
               child: MyAttensionView(),
             ),
@@ -98,13 +101,14 @@ class _AccountPageState extends State<AccountPage> {
 
   /// 布局内容部分视图
   Widget _layoutContentView(){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return dataSource == null ?  SliverToBoxAdapter(
       child: Container(
         padding: EdgeInsets.only(bottom: 10.0),
-        color: Colors.white,
+        color: model.tableViewBackgroundColor(),
         height: 300,
         child: Container(
-          color: Colors.white,
+          color: model.tableViewBackgroundColor(),
         ),
       ),
     ) : SliverList(
@@ -128,8 +132,9 @@ class _AccountPageState extends State<AccountPage> {
 
   /// 分割线
   Widget _listViewLine(double height) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color(0xffeaeaea),
+      color: model.dividerColor(),
       height: height,
     );
   }

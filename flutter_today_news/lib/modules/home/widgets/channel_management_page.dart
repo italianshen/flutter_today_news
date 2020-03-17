@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'channel_listview_item.dart';
 
 class ChannelManagementPage extends StatelessWidget {
@@ -13,8 +15,9 @@ class ChannelManagementPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color(0xfff2f2f2),
+      color: model.greyColor(),
       padding: EdgeInsets.only(bottom: 10.0),
       child: ListView.builder(
           itemCount: 2,
@@ -24,7 +27,7 @@ class ChannelManagementPage extends StatelessWidget {
               return _createListViewItem(context, idx);
             }else{
               int idx = index ~/ 2;
-              return _createSectionHeader(idx);
+              return _createSectionHeader(idx,context);
             }
           }),
     );
@@ -37,16 +40,17 @@ class ChannelManagementPage extends StatelessWidget {
   }
 
   /// 分组标题
-  Widget _createSectionHeader(int index){
+  Widget _createSectionHeader(int index,BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return  Container(
       height: 30.0,
       padding: EdgeInsets.only(left: 15.0,top: 6.0,bottom: 6.0),
       alignment: Alignment.centerLeft,
-      color: Color(0xfff2f2f2),
+      color: model.greyColor(),
       child: Row(
         children: <Widget>[
           Text("我的频道",style: TextStyle(
-              color: Color(0xff666666),
+              color: model.blackColor(),
               fontSize: 14.0
           ),)
         ],

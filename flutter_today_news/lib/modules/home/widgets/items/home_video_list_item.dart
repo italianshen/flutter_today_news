@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 class HomeFeedNewsVideoListItem extends StatefulWidget {
 
   /// 标题
@@ -26,11 +28,13 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double picHeight = screenWidth * 9.0/16.0;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return InkWell(
       onTap: (){
         debugPrint("点击了item");
       },
       child: Container(
+        color: model.tableViewBackgroundColor(),
         child: Column(
           children: <Widget>[
             Stack(
@@ -87,7 +91,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
               ],
             ),
             Container(
-              color: Colors.white,
+              color: model.tableViewBackgroundColor(),
               height: 50.0,
               width: screenWidth,
               padding: EdgeInsets.only(left: 15.0,right: 15.0),
@@ -116,7 +120,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                   )),
                   Container(
                     width: 150.0,
-                    color: Colors.white,
+                    color: model.tableViewBackgroundColor(),
                     height: 50.0,
                     child: Row(
                       children: <Widget>[
@@ -127,7 +131,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                         SizedBox(width: 3.0,),
                         Text(
                           "关注",
-                          style: getTextStyle(Colors.black, 12.0, false),
+                          style: getTextStyle(model.blackColor(), 12.0, false),
                         ),
                         SizedBox(width: 8.0,),
                         InkWell(child: Image.asset("images/home/comment_24x24_@2x.png",
@@ -137,7 +141,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                         SizedBox(width: 3.0,),
                         Text(
                           "评论",
-                          style: getTextStyle(Colors.black, 12.0, false),
+                          style: getTextStyle(model.blackColor(), 12.0, false),
                         ),
                         SizedBox(width: 8.0,),
                         InkWell(child: Image.asset("images/home/More_24x24_@2x.png",
@@ -152,7 +156,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
             ),
             Container(
               height: 10.0,
-              color: Color(0xffdedede),
+              color: model.dividerColor(),
             )
           ],
         ),

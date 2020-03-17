@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class WeitoutiaoUserInfoView extends StatelessWidget {
 
@@ -19,6 +21,7 @@ class WeitoutiaoUserInfoView extends StatelessWidget {
 
   /// 头像信息视图
   Widget _createUserInfoView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 15.0,bottom: 15.0),
       child: Row(
@@ -33,7 +36,7 @@ class WeitoutiaoUserInfoView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(userName,style: TextStyle(
-                      color: Colors.black,
+                      color: model.blackColor(),
                       fontSize: 12.0
                   ),),
                   SizedBox(height: 6.0,),
@@ -43,7 +46,7 @@ class WeitoutiaoUserInfoView extends StatelessWidget {
                   ),),
                 ],
               )),
-          Icon(Icons.more_horiz,color: Colors.black,size: 30.0,)
+          Icon(Icons.more_horiz,color: model.blackColor(),size: 30.0,)
         ],
       ),
     );

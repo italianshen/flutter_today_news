@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'consts/theme_model.dart';
 import 'modules/account/widgets/account_page.dart';

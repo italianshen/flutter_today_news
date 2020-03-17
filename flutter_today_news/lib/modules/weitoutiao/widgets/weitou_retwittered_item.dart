@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_toolbar_view.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_userinfo_view.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
 import 'package:flutter_today_news/utils/fade_route.dart';
 import 'package:flutter_today_news/utils/photoview_gallery_screen.dart';
+import 'package:provider/provider.dart';
 // 转发微头条
 
 class WeitoutiaoRetwitteredItem extends StatefulWidget {
@@ -63,11 +65,11 @@ class WeitoutiaoRetwitteredItem extends StatefulWidget {
 
 class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
 
-
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -98,12 +100,14 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
 
   /// 转发的内容部分
   Widget _buildRetwitterContentView(){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 10.0),
       child: Text(
         widget.retwitterContent,
         style: TextStyle(
-          color: Colors.black,
+          color: model.blackColor(),
           fontSize: 16.0
         ),
       ),
@@ -112,15 +116,16 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
 
   /// 原创内容
   Widget _buildOrignThreadContentView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color.fromRGBO(242, 242, 245, 1.0),
+      color: model.greyColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 15.0,top: 15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(widget.screenName + widget.orginalContent,style: TextStyle(
             fontSize: 16.0,
-            color: Colors.black
+            color: model.blackColor()
           ),),
           _buildGirdViewImageContent(context)
         ],
@@ -181,8 +186,9 @@ class _WeitoutiaoRetwitteredItemState extends State<WeitoutiaoRetwitteredItem> {
 
   /// 分割线
   Widget _listViewLine(double height) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color(0xffeaeaea),
+      color: model.dividerColor(),
       height: height,
     );
   }

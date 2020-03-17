@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeFeedNewsThreeImageItem extends StatelessWidget {
 
@@ -26,23 +28,26 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
     // 图片 224/150 图片长宽比
     double picWidth = (screenWidth - 2.0 * margin - 2.0 * itemMargin)/3.0 ;
     double picHeight = picWidth * 176/218;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
+      color: model.tableViewBackgroundColor(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 15.0,bottom: 10.0,top: 10.0,right: 15.0),
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             child: Text(title,style: TextStyle(
                 fontSize: 16.0,
-                color: Color(0xff333333),
+                color: model.blackColor(),
                 fontWeight: FontWeight.w400
             ),),
           ),
           Container(
             height: picHeight,
             padding: EdgeInsets.only(left: 15.0,right: 15.0),
+            color: model.tableViewBackgroundColor(),
             child: Column(
               children: <Widget>[
                 Container(
@@ -57,12 +62,12 @@ class HomeFeedNewsThreeImageItem extends StatelessWidget {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 15.0,right: 15.0),
             height: 40.0,
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             child: _createBottomView(),
           ),
           Divider(
             height: 1.0,
-            color: Color(0xffdedede),
+            color: model.dividerColor(),
             indent: 15.0,
           )
 

@@ -5,6 +5,8 @@ import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart'
 import 'package:flutter_today_news/modules/home/widgets/HomeAppBarView.dart';
 import 'package:flutter_today_news/modules/home/widgets/home_recoment_page.dart';
 import 'package:flutter_today_news/modules/video/widgets/video_topic_page.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class VideoPage extends StatefulWidget {
   @override
@@ -64,14 +66,15 @@ class _VideoPageState extends State<VideoPage> with SingleTickerProviderStateMix
   Widget _initChannelTitle(){
     double addWidth = 40.0;
     double screenWidth = MediaQuery.of(context).size.width;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       width: screenWidth,
       child: Row(
         children: <Widget>[
           Container(
             width: (screenWidth - addWidth),
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             child:
             TabBar(
                 controller: _tabController,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 class WeitoutiaoToolBarView extends StatelessWidget {
 
   /// 点赞数
@@ -18,12 +20,13 @@ class WeitoutiaoToolBarView extends StatelessWidget {
 
   Widget _buildBottomToolBar(BuildContext context){
     double screenW = MediaQuery.of(context).size.width;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       height: 36.0,
       child: Row(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             height: 36,
             width: screenW/3.0,
             alignment: Alignment.center,
@@ -33,15 +36,17 @@ class WeitoutiaoToolBarView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/home/like_old_feed_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,),
+                  Image.asset("images/home/like_old_feed_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,color: model.blackColor(),),
                   SizedBox(width: 6.0,),
-                  Text(likeCount)
+                  Text(likeCount,style: TextStyle(
+                    color: model.blackColor()
+                  ),)
                 ],
               ),
             ),
           ),
           Container(
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             height: 36.0,
             width: screenW/3.0,
             alignment: Alignment.topCenter,
@@ -51,15 +56,17 @@ class WeitoutiaoToolBarView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/home/comment_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0),
+                  Image.asset("images/home/comment_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,color: model.blackColor(),),
                   SizedBox(width: 6.0,),
-                  Text(commentCount)
+                  Text(commentCount,style: TextStyle(
+                      color: model.blackColor()
+                  ),)
                 ],
               ),
             ),
           ),
           Container(
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             height: 36.0,
             width: screenW/3.0,
             alignment: Alignment.topCenter,
@@ -69,9 +76,13 @@ class WeitoutiaoToolBarView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("images/home/feed_share_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,),
+                  Image.asset("images/home/feed_share_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,
+                  color: model.blackColor(),
+                  ),
                   SizedBox(width: 6.0,),
-                  Text(forwardCount)
+                  Text(forwardCount,style: TextStyle(
+                      color: model.blackColor()
+                  ),)
                 ],
               ),
             ),

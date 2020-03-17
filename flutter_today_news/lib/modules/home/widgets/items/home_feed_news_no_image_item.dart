@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeFeedNewsNoImageItem extends StatelessWidget {
   String title = "北京时间3月6日，金州勇士主场迎战多伦多猛龙。此役，勇士核心球员斯蒂芬-库里在缺席了58场比赛之后终于复出。";
@@ -12,7 +14,9 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +24,7 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
           Text(title,style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w400,
-            color: Color(0xff333333)
+            color: model.blackColor()
           ),),
           SizedBox(height: 10.0,),
           Row(
@@ -36,7 +40,7 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff999999)
+                      color: Colors.grey
                   )
               )),
               GestureDetector(
@@ -53,7 +57,7 @@ class HomeFeedNewsNoImageItem extends StatelessWidget {
           ),
           SizedBox(height: 10.0,),
           Divider(
-            color: Color(0xffdedede),
+            color: model.dividerColor(),
             height: 1.0,
           )
         ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 
 class MyAttensionView extends StatelessWidget {
@@ -31,6 +33,7 @@ class MyAttensionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
         child: Column(
           children: <Widget>[
@@ -42,7 +45,7 @@ class MyAttensionView extends StatelessWidget {
             Expanded(child: Container(
               width: double.infinity,
               height: double.infinity,
-              color: Colors.white,
+              color: model.tableViewBackgroundColor(),
               child: ListView.builder(
                 itemCount: imageList.length,
                 scrollDirection: Axis.horizontal,
@@ -55,8 +58,9 @@ class MyAttensionView extends StatelessWidget {
 
   /// 构建item
   Widget _buildItemView(BuildContext context,int index){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15,right: 15.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +69,9 @@ class MyAttensionView extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(18.0)),
             child: Image.network(imageList[index],width: 36.0,height: 36.0,),
           ),
-          Text(titleList[index])
+          Text(titleList[index],style: TextStyle(
+            color: model.blackColor()
+          ),)
         ],
       ),
     );

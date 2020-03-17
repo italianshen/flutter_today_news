@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/weitoutiao/widgets/weitoutiao_userinfo_view.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class WeitoutiaoAricleItem extends StatelessWidget {
 
@@ -40,8 +42,9 @@ class WeitoutiaoAricleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -52,7 +55,7 @@ class WeitoutiaoAricleItem extends StatelessWidget {
           _buildOrignThreadContentView(context),
           /// 多少人阅读
           _buildReadCountView(),
-          _listViewLine(10.0),
+          _listViewLine(10.0, context),
         ],
       ),
     );
@@ -60,18 +63,19 @@ class WeitoutiaoAricleItem extends StatelessWidget {
 
   /// 原创内容
   Widget _buildOrignThreadContentView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,bottom: 15.0,top: 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(orginalContent,style: TextStyle(
               fontSize: 16.0,
-              color: Colors.black
+              color: model.blackColor()
           ),),
           SizedBox(height: 15.0,),
-          _createArticleItemView()
+          _createArticleItemView(context)
         ],
       ),
     );
@@ -79,9 +83,11 @@ class WeitoutiaoAricleItem extends StatelessWidget {
 
 
   /// 创建原创文章部分内容
-  Widget _createArticleItemView(){
+  Widget _createArticleItemView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
+    //Color.fromRGBO(241, 242, 245, 1),
     return Container(
-      color: Color.fromRGBO(241, 242, 245, 1),
+      color: model.greyColor(),
       height: 90.0,
       child: Row(
         children: <Widget>[
@@ -104,13 +110,14 @@ class WeitoutiaoAricleItem extends StatelessWidget {
             ),
           ),
           Expanded(child: Container(
+//            color: Colors.grey,
             padding: EdgeInsets.only(left: 15.0,right: 15.0),
             child: Text(articleTitle,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
               fontSize: 16.0,
-              color: Colors.black
+              color: model.blackColor()
             ),),
           )),
         ],
@@ -160,9 +167,10 @@ class WeitoutiaoAricleItem extends StatelessWidget {
   }
 
   /// 分割线
-  Widget _listViewLine(double height) {
+  Widget _listViewLine(double height,BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Color(0xffeaeaea),
+      color: model.dividerColor(),
       height: height,
     );
   }

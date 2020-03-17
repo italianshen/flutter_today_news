@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_today_news/consts/theme_model.dart';
 import 'package:flutter_today_news/modules/home/model/home_nav_entity.dart';
 import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'HomeAppBarView.dart';
 import 'channel_management_page.dart';
 import 'home_recoment_page.dart';
@@ -66,14 +68,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget _initChannelTitle(){
     double addWidth = 40.0;
     double screenWidth = MediaQuery.of(context).size.width;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       width: screenWidth,
       child: Row(
         children: <Widget>[
           Container(
             width: (screenWidth - addWidth),
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             child:
             TabBar(
                 controller: _tabController,

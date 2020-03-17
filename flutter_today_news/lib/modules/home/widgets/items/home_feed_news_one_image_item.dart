@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeFeedNewsOneImageItem extends StatelessWidget {
   String title = "北京时间3月6日，金州勇士主场迎战多伦多猛龙。此役，勇士核心球员斯蒂芬-库里在缺席了58场比赛之后终于复出。";
@@ -22,13 +24,14 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double picWidth = ScreenUtil().setWidth(218);
     double picHeight = picWidth * 130/218;//130/218
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       padding: EdgeInsets.only(left: 15.0,right: 15.0,top: 10.0),
       child: Column(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             alignment: Alignment.topLeft,
             width: double.infinity,
             height: picHeight,
@@ -36,7 +39,7 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
               children: <Widget>[
                 Expanded(child: Container(
                   alignment: Alignment.topLeft,
-                  color: Colors.white,
+                  color: model.tableViewBackgroundColor(),
                   padding: EdgeInsets.only(right: 10.0),
                   child: Flex(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,13 +49,13 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: 16.0,
-                          color: Color(0xff333333),
+                          color: model.blackColor(),
                           fontWeight: FontWeight.w400
                       ),)),
                     Container(
-                      color: Colors.white,
+                      color: model.tableViewBackgroundColor(),
                       height: 25.0,
-                      child: _createBottomView(),
+                      child: _createBottomView(context),
                     )
                   ],),
                 )),
@@ -65,7 +68,7 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
           ),
           SizedBox(height: 10.0,),
           Divider(
-            color: Color(0xffdedede),
+            color: model.dividerColor(),
             height: 1.0,
           )
         ],
@@ -74,10 +77,11 @@ class HomeFeedNewsOneImageItem extends StatelessWidget {
   }
 
   /// 构建底部视图
-  Widget _createBottomView(){
+  Widget _createBottomView(BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       height: 25.0,
-      color: Colors.white,
+      color: model.tableViewBackgroundColor(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[

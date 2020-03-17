@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class ChannelDidsplayView extends StatelessWidget {
 
@@ -23,13 +25,14 @@ class ChannelDidsplayView extends StatelessWidget {
     }
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double margin = 2.0;
+    double margin = 10.0;
     double itemWidth = (screenWidth - (kColCount + 1) * margin)/kColCount;
     double itemH = itemWidth * 2/5;
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       height: itemH * lines + ((lines == 1 ? 1 : (lines))) * margin,
       padding: EdgeInsets.only(left: margin,right: margin,top: margin),
-      color: Color(0xfff2f2f2),
+      color: model.greyColor(),
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),//去除gridView本身的滚动
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -45,14 +48,17 @@ class ChannelDidsplayView extends StatelessWidget {
   }
 
   Widget _createGridViewItem(BuildContext context,int index){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Center(
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: model.channelBGColor(),
             borderRadius: BorderRadius.circular(6.0)
         ),
         alignment: Alignment.center,
-        child: Text(titles[index]),
+        child: Text(titles[index],style: TextStyle(
+          color: model.blackColor()
+        ),),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class AccountHeaderView extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class _AccountHeaderViewState extends State<AccountHeaderView> {
     double bottomViewH = 70;
     double screenW = MediaQuery.of(context).size.width;
     double headerViewH = topPadding == 44.0 ? 280 : 260.0;
-
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       height: headerViewH,
       child: Column(
@@ -22,7 +24,7 @@ class _AccountHeaderViewState extends State<AccountHeaderView> {
           Container(
             width: screenW,
             height:headerH,
-//            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             child: Stack(
               children: <Widget>[
                 Image.asset(
@@ -90,13 +92,13 @@ class _AccountHeaderViewState extends State<AccountHeaderView> {
 
           Container(
             height: bottomViewH,
-            color: Colors.black54,
+            color:  model.tableViewBackgroundColor(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  color: Colors.white,
+                  color: model.tableViewBackgroundColor(),
                   height: bottomViewH,
                   width: screenW/3.0,
                   alignment: Alignment.center,
@@ -107,13 +109,15 @@ class _AccountHeaderViewState extends State<AccountHeaderView> {
                       children: <Widget>[
                         Image.asset("images/mine/favoriteicon_profile_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,),
                         SizedBox(height: 3.0,),
-                        Text("收藏")
+                        Text("收藏",style: TextStyle(
+                          color: model.blackColor()
+                        ),)
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  color: model.tableViewBackgroundColor(),
                   height: bottomViewH,
                   width: screenW/3.0,
                   alignment: Alignment.topCenter,
@@ -124,24 +128,31 @@ class _AccountHeaderViewState extends State<AccountHeaderView> {
                       children: <Widget>[
                         Image.asset("images/mine/history_profile_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,),
                         SizedBox(height: 3.0,),
-                        Text("历史")
+                        Text("历史",style: TextStyle(
+                            color: model.blackColor()
+                        ))
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  color: model.tableViewBackgroundColor(),
                   height: bottomViewH,
                   width: screenW/3.0,
                   alignment: Alignment.topCenter,
                   padding: EdgeInsets.only(left: 10.0,right: 10.0,top: 5.0),
                   child: InkWell(
+                    onTap: (){
+                      model.reverseThemeType();
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset("images/mine/nighticon_profile_24x24_@2x.png",scale: 1.0,width: 24.0,height: 24.0,),
                         SizedBox(height: 3.0,),
-                        Text("夜间")
+                        Text("夜间",style: TextStyle(
+                        color: model.blackColor()
+                        )),
                       ],
                     ),
                   ),

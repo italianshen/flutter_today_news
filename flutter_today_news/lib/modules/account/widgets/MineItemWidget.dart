@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class MineItemWidget extends StatelessWidget{
   String imageName;
@@ -10,14 +12,14 @@ class MineItemWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Container(
       child: Column(
         children: <Widget>[
           Container(
-            color: Colors.white,
+            color: model.tableViewBackgroundColor(),
             height: 53.0,
-            child: _mineItem(this.imageName, this.title),
+            child: _mineItem(this.imageName, this.title,context),
           ),
           Container(
             color: Color(0xffeaeaea),
@@ -28,7 +30,8 @@ class MineItemWidget extends StatelessWidget{
     );
   }
 
-  Widget _mineItem(String imageName,String title){
+  Widget _mineItem(String imageName,String title,BuildContext context){
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return InkWell(
       onTap: (){
         this.onTap();
@@ -39,7 +42,9 @@ class MineItemWidget extends StatelessWidget{
               flex: 1,
               child: Container(
                 padding: EdgeInsets.only(left: 16.0),
-                child: Image.network(imageName,width: 24,height: 24,)
+                child: Image.network(imageName,width: 24,height: 24,
+                color: model.blackColor(),
+                )
               )
           ),
           Expanded(
@@ -48,7 +53,7 @@ class MineItemWidget extends StatelessWidget{
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                     title,
-                    style: TextStyle(fontSize: 16.0),
+                    style: TextStyle(fontSize: 16.0,color: model.blackColor()),
                 ),
               )
           ),
