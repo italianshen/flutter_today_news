@@ -125,7 +125,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                     child: Row(
                       children: <Widget>[
                         InkWell(child: Image.asset("images/home/video_add_24x24_@2x.png",
-                          scale:1.0,width: 24,height: 24,),onTap: (){
+                          scale:1.0,width: 24,height: 24,color: model.blackColor(),),onTap: (){
                           debugPrint("点击了关注");
                         },),
                         SizedBox(width: 3.0,),
@@ -135,7 +135,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                         ),
                         SizedBox(width: 8.0,),
                         InkWell(child: Image.asset("images/home/comment_24x24_@2x.png",
-                          scale:1.0,width: 24,height: 24,),onTap: (){
+                          scale:1.0,width: 24,height: 24,color: model.blackColor(),),onTap: (){
                           debugPrint("点击了评论");
                         },),
                         SizedBox(width: 3.0,),
@@ -145,7 +145,7 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                         ),
                         SizedBox(width: 8.0,),
                         InkWell(child: Image.asset("images/home/More_24x24_@2x.png",
-                          scale:1.0,width: 24,height: 24,),onTap: (){
+                          scale:1.0,width: 24,height: 24,color: model.blackColor(),),onTap: (){
                           debugPrint("点击了更多");
                         },),
                       ],
