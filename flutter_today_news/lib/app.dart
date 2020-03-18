@@ -139,10 +139,11 @@ class _AppPageState extends State<AppPage> with AutomaticKeepAliveClientMixin{
   /// 页面构造方法
   @override
   Widget build(BuildContext context) {
+    ThemeModel model = Provider.of<ThemeModel>(context);
     return Scaffold(
       bottomNavigationBar:BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
+        backgroundColor: model.bottomTabBarColor(),
         items: tabBarItems(),
         unselectedItemColor: tabNormalColor,
         selectedItemColor: tabSelColor,

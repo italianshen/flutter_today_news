@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_today_news/modules/home/model/home_feed_entity.dart';
 import 'package:flutter_today_news/modules/home/view_model/home_view_model.dart';
 import 'package:flutter_today_news/modules/home/widgets/items/home_video_list_item.dart';
+import 'package:flutter_today_news/utils/Util.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
+import 'package:video_player/video_player.dart';
+import 'chewie_list_item.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
 /// 推荐页
 class VideoTopicPage extends StatefulWidget {
   /// 分类
@@ -31,10 +35,14 @@ class _VideoTopicPageState extends State<VideoTopicPage> with
   /// 数据源
   List<HomeFeedEntity> dataSource;
 
+  /// dio
+  Dio _dio;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _dio = Dio();
     _viewModel = HomeViewModel();
     _viewModel.prepareNetWorkTool();
     dataSource = new List();
@@ -126,12 +134,34 @@ class _VideoTopicPageState extends State<VideoTopicPage> with
   Widget _buildListViewItem(BuildContext context,int index){
     HomeFeedEntity entity = dataSource[index];
     return HomeFeedNewsVideoListItem(
-        entity.title,
-        entity.readCount.toString() + "次播放",
-        "01:39",
-        entity.shareLargeImage.url,
-        entity.mediaInfo.avatarUrl,
-        entity.mediaInfo.name
+      entity.title,
+      entity.readCount.toString() + "次播放",
+      "01:39",
+      entity.shareLargeImage.url,
+      entity.mediaInfo.avatarUrl,
+      entity.mediaInfo.name
     );
   }
+
+  /// 获取视频地址
+//  Future<String> _getVideoPlayUrl(String videoId) async{
+//    String url = "http://i.snssdk.com/video/urls/v/1/toutiao/mp4/" + videoId + "?r=3090799792&s=2504595872";
+//    Response response = await _dio.get(url);
+//    print("嘻嘻嘻");
+//    print(response.data.runtimeType);
+//    /// 解析json
+//    Map responseMap = Map.from(response.data);
+//    print("嘻嘻嘻$responseMap");
+//    Map videoListMap = responseMap["video_list"];
+//    Map videoMap = videoListMap["video_1"];
+//    String mainUrl = videoMap["main_url"];
+//    if(mainUrl == null){
+//      mainUrl = videoListMap["backup_url_1"];
+//    }
+//    debugPrint("🟣mainUrl:\(mainUrl)");
+//    String decodeUrl = Util.base64Decode(mainUrl);
+//    debugPrint("🟣decodeUrl:\(decodeUrl)");
+//    return decodeUrl;
+//  }
+
 }

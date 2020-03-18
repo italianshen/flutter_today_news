@@ -71,7 +71,8 @@ class ThemeModel with ChangeNotifier{
     if(type == ThemeType.Day){
       return Color(0xfff6f6f6);
     }else{
-      return Color(0xff252525);
+//      return Color(0xff252525);
+      return Color.fromRGBO(42, 42, 45, 1.0);
     }
   }
 
@@ -105,7 +106,7 @@ class ThemeModel with ChangeNotifier{
   /// 频道的背景颜色
   Color channelBGColor(){
     if(type == ThemeType.Day){
-      return Color.fromRGBO(241, 242, 245, 1);
+      return Color.fromRGBO(244, 245, 246, 1);
     }else{
       return Color(0xff000000).withOpacity(0.4);
     }
@@ -118,6 +119,16 @@ class ThemeModel with ChangeNotifier{
       return Color(0xfff0f0f0);
     }else{
       return Color(0xff464646);
+    }
+  }
+
+  /// 底部tabBar的颜色
+  /// 分割线的颜色
+  Color bottomTabBarColor(){
+    if(type == ThemeType.Day){
+      return Color(0xffffffff);
+    }else{
+      return Color.fromRGBO(31, 31, 31, 1);;
     }
   }
 }

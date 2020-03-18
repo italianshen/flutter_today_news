@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_today_news/provider/theme_provider.dart';
+import 'package:flutter_today_news/utils/video_player_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
 class HomeFeedNewsVideoListItem extends StatefulWidget {
-
   /// 标题
   String title = "印度苦行僧13岁开始绝食，78年不吃喝不排泄，现在情况如何?";
   /// 播放次数
@@ -19,11 +21,31 @@ class HomeFeedNewsVideoListItem extends StatefulWidget {
   /// 构造方法
   HomeFeedNewsVideoListItem(this.title,this.playTimesText,this.duration,this.image,this.mediaAvatar,this.mediaName);
 
+
+
   @override
   _HomeFeedNewsVideoListItemState createState() => _HomeFeedNewsVideoListItemState();
 }
 
 class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
+  /// 网络请求库
+  Dio dio;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // 初始化
+    dio = Dio(
+
+        BaseOptions(
+          connectTimeout: 6000,// 连接服务器超时时间，单位是毫秒.
+          receiveTimeout: 10000,// 响应流上前后两次接受到数据的间隔，单位为毫秒, 这并不是接收数据的总时限.
+        )
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -63,7 +85,11 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
                             InkWell(
                               child: Image.asset("images/play_icon.png",width: 44.0,height: 44.0,),
                               onTap: (){
-                                debugPrint("点击了播放按钮");
+                                debugPrint("点击了播放按钮 测试上传图片");
+                                //VideoPlayerScreen
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                                  return VideoPlayerScreen();
+                                }));
                               },
                             )
                           ],
@@ -171,6 +197,30 @@ class _HomeFeedNewsVideoListItemState extends State<HomeFeedNewsVideoListItem> {
       fontSize: fontsizes,
       fontWeight: isFontWeight == true ? FontWeight.bold : FontWeight.normal ,
     );
+  }
+
+  /// TODO:上传图片
+  _uploadImages() async {
+    var url = 'http://stack.mynatapp.cc/api/business/addBusinessMore';
+//    FormData formData = FormData.fromMap({
+//      "files": await MultipartFile.fromFile("/Users/danny/Desktop/toutiao_git_march_05/flutter_today_news/flutter_today_news/images/121-bigskin-2.jpg",filename: "121-bigskin-2.jpg"),
+//      "files":  await MultipartFile.fromFile("/Users/danny/Desktop/toutiao_git_march_05/flutter_today_news/flutter_today_news/images/121-bigskin-1.jpg",filename: "121-bigskin-1.jpg"),
+//    });
+
+    FormData formData = FormData.fromMap({
+      "files": [
+        await MultipartFile.fromFile("/Users/danny/Desktop/toutiao_git_march_05/flutter_today_news/flutter_today_news/images/121-bigskin-2.jpg",filename: "121-bigskin-2.jpg"),
+        await MultipartFile.fromFile("/Users/danny/Desktop/toutiao_git_march_05/flutter_today_news/flutter_today_news/images/121-bigskin-1.jpg",filename: "121-bigskin-1.jpg")
+      ]
+    });
+
+    var dio = new Dio();
+    var response = await dio.post(url, data:formData);
+    String res = response.data.toString();
+
+    print(res);
+    print(res.runtimeType); // String
+
   }
 }
 

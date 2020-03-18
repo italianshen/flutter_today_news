@@ -22,6 +22,7 @@ class Net{
   Net._internal(){
     // 初始化
     dio = Dio(
+
         BaseOptions(
           connectTimeout: 6000,// 连接服务器超时时间，单位是毫秒.
           receiveTimeout: 10000,// 响应流上前后两次接受到数据的间隔，单位为毫秒, 这并不是接收数据的总时限.

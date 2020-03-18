@@ -8,6 +8,8 @@ PODS:
     - Flutter
   - video_player_web (0.0.1):
     - Flutter
+  - wakelock (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -15,6 +17,7 @@ DEPENDENCIES:
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
   - video_player_web (from `.symlinks/plugins/video_player_web/ios`)
+  - wakelock (from `.symlinks/plugins/wakelock/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
@@ -27,6 +30,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/video_player/ios"
   video_player_web:
     :path: ".symlinks/plugins/video_player_web/ios"
+  wakelock:
+    :path: ".symlinks/plugins/wakelock/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
@@ -34,6 +39,7 @@ SPEC CHECKSUMS:
   fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
   video_player: 69c5f029fac4ffe4fc8a85ea7f7b793709661549
   video_player_web: da8cadb8274ed4f8dbee8d7171b420dedd437ce7
+  wakelock: bd3dcc6a8bcf53a1c0309780ff192dcee67c6ccb
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
